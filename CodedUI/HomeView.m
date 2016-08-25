@@ -9,24 +9,10 @@
 #import "HomeView.h"
 
 @implementation HomeView {
-    UIButton *upcomingBtn;
-    UIButton *previousBtn;
-    UIView *botMenu;
-    UIScrollView *scroll;
-    UIImageView *img1;
-    UIView *midView;
-    UIImageView *img2;
-    UIView *g1;
-    UIView *g2;
-    UIView *g3;
-    UIView *g4;
-    UIView *btnBar;
-    UIView *g5;
-    UIView *g6;
-    UIView *g7;
+    
 }
 
-@synthesize homeView,profPic,btn1,btn2,btn3,btn4,btn5,lbl1,lbl2;
+@synthesize homeView,profPic,btn1,btn2,btn3,btn4,btn5,lbl1,lbl2,upcomingBtn,previousBtn,botMenu,scroll,img,midView,img2,g1,g2,g3,g4,btnBar,g5,g6,g7,roomView,picArray,label1Array,label2Array;
 
 float screenWidth;
 float screenHeight;
@@ -65,35 +51,6 @@ float screenHeight;
     scroll.scrollEnabled = YES;
     [homeView addSubview:scroll];
     
-    img1 = [[UIImageView alloc]init];
-    img1.translatesAutoresizingMaskIntoConstraints = NO;
-    img1.image = [UIImage imageNamed:@"image1.jpg"];
-    [scroll addSubview:img1];
-    
-    midView = [[UIView alloc]init];
-    midView.translatesAutoresizingMaskIntoConstraints = NO;
-    midView.backgroundColor = [UIColor whiteColor];
-    [scroll addSubview:midView];
-    
-    img2 = [[UIImageView alloc]init];
-    img2.translatesAutoresizingMaskIntoConstraints = NO;
-    img2.image = [UIImage imageNamed:@"image2.jpg"];
-    [scroll addSubview:img2];
-    
-    g1 = [[UIView alloc]init];
-    g1.translatesAutoresizingMaskIntoConstraints = NO;
-    [img1 addSubview:g1];
-    
-    g2 = [[UIView alloc]init];
-    g2.translatesAutoresizingMaskIntoConstraints = NO;
-    [img1 addSubview:g2];
-
-    profPic = [[UIImageView alloc]init];
-    profPic.translatesAutoresizingMaskIntoConstraints = NO;
-    profPic.image = [UIImage imageNamed:@"squirtle.png"];
-    profPic.backgroundColor = [BaseView colorWithHexString:@"014A88"];
-    [scroll addSubview:profPic];
-    
     g3 = [[UIView alloc]init];
     g3.translatesAutoresizingMaskIntoConstraints = NO;
     [botMenu addSubview:g3];
@@ -131,32 +88,407 @@ float screenHeight;
     [btn5 setImage:[UIImage imageNamed:@"profile.png"] forState:UIControlStateNormal];
     [btnBar addSubview:btn5];
     
+    [self setConstraints];
+    
+}
+
+- (void) addRoomViewOnScrollView:(UIScrollView *)scrollView widthToHeightRatio:(float)ratio data:(NSDictionary *)data last:(BOOL)last {
+    
+    UIView *prevRoomView = roomView;
+    
+    roomView = [[UIView alloc]init];
+    roomView.translatesAutoresizingMaskIntoConstraints = NO;
+    //roomView.backgroundColor = [UIColor grayColor];
+    [scrollView addSubview:roomView];
+    
+    img = [[UIImageView alloc]init];
+    img.translatesAutoresizingMaskIntoConstraints = NO;
+    img.image = [UIImage imageNamed:data[@"img"]];
+    [roomView addSubview:img];
+    
+    g1 = [[UIView alloc]init];
+    g1.translatesAutoresizingMaskIntoConstraints = NO;
+    [img addSubview:g1];
+    
+    g2 = [[UIView alloc]init];
+    g2.translatesAutoresizingMaskIntoConstraints = NO;
+    [img addSubview:g2];
+    
+    profPic = [[UIImageView alloc] initWithImage:[UIImage imageNamed:data[@"img"]]];
+    profPic.translatesAutoresizingMaskIntoConstraints = NO;
+    profPic.image = [UIImage imageNamed:data[@"profPic"]];
+    //profPic.backgroundColor = [BaseView colorWithHexString:@"014A88"];
+    profPic.contentMode = UIViewContentModeScaleAspectFill;
+    [scroll addSubview:profPic];
+    [picArray addObject:profPic];
+    
     g5 = [[UIView alloc]init];
     g5.translatesAutoresizingMaskIntoConstraints = NO;
-    [midView addSubview:g5];
+    [scrollView addSubview:g5];
     
     g6 = [[UIView alloc]init];
     g6.translatesAutoresizingMaskIntoConstraints = NO;
-    [midView addSubview:g6];
+    [scrollView addSubview:g6];
     
     g7 = [[UIView alloc]init];
     g7.translatesAutoresizingMaskIntoConstraints = NO;
-    [midView addSubview:g7];
+    [scrollView addSubview:g7];
     
     lbl1 = [[UILabel alloc]init];
     lbl1.translatesAutoresizingMaskIntoConstraints = NO;
-    lbl1.text = @"ROOMS ONLY -House & Heated Pool";
+    lbl1.text = data[@"lbl1"];
     lbl1.textColor = [BaseView colorWithHexString:@"474E4E"];
-    [midView addSubview:lbl1];
+    [scrollView addSubview:lbl1];
+    [label1Array addObject:lbl1];
     
     lbl2 = [[UILabel alloc]init];
     lbl2.translatesAutoresizingMaskIntoConstraints = NO;
-    lbl2.text = @"Southampton, US • May 29 to May 31 • 5 guests";
+    lbl2.text = data[@"lbl2"];
     lbl2.textColor = [BaseView colorWithHexString:@"858E91"];
-    [midView addSubview:lbl2];
+    [scrollView addSubview:lbl2];
+    [label2Array addObject:lbl2];
+
     
-    [self setConstraints];
+    if(prevRoomView == nil) {
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:scrollView
+                                                           attribute:NSLayoutAttributeTop
+                                                          multiplier:1
+                                                            constant:0]];
+    } else {
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
+                                                           attribute:NSLayoutAttributeTop
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:prevRoomView
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1
+                                                            constant:0]];
+    }
     
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
+                                                     attribute:NSLayoutAttributeCenterX
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:scrollView
+                                                     attribute:NSLayoutAttributeCenterX
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:scrollView
+                                                     attribute:NSLayoutAttributeWidth
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:roomView
+                                                     attribute:NSLayoutAttributeHeight
+                                                    multiplier:ratio
+                                                      constant:0]];
+    
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:img
+                                                       attribute:NSLayoutAttributeTop
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:roomView
+                                                       attribute:NSLayoutAttributeTop
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:img
+                                                       attribute:NSLayoutAttributeCenterX
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:roomView
+                                                       attribute:NSLayoutAttributeCenterX
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:img
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:roomView
+                                                       attribute:NSLayoutAttributeWidth
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:img
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:img
+                                                       attribute:NSLayoutAttributeHeight
+                                                      multiplier:750.0/505.0
+                                                        constant:0]];
+
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g1
+                                                     attribute:NSLayoutAttributeTop
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:img
+                                                     attribute:NSLayoutAttributeTop
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g1
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:img
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g1
+                                                     attribute:NSLayoutAttributeRight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:img
+                                                     attribute:NSLayoutAttributeRight
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g1
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:g1
+                                                     attribute:NSLayoutAttributeHeight
+                                                    multiplier:35.0/505.0
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g2
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:img
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g2
+                                                     attribute:NSLayoutAttributeRight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:g1
+                                                     attribute:NSLayoutAttributeLeft
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g2
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:g1
+                                                     attribute:NSLayoutAttributeHeight
+                                                    multiplier:18.0/101.0
+                                                      constant:0]];
+    
+    [img addConstraint:[NSLayoutConstraint constraintWithItem:g2
+                                                     attribute:NSLayoutAttributeWidth
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:g2
+                                                     attribute:NSLayoutAttributeHeight
+                                                    multiplier:2.0/1.0
+                                                      constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                       attribute:NSLayoutAttributeTop
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:g2
+                                                       attribute:NSLayoutAttributeTop
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                       attribute:NSLayoutAttributeRight
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:g2
+                                                       attribute:NSLayoutAttributeRight
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                       attribute:NSLayoutAttributeLeft
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:g2
+                                                       attribute:NSLayoutAttributeLeft
+                                                      multiplier:1
+                                                        constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                       attribute:NSLayoutAttributeWidth
+                                                       relatedBy:NSLayoutRelationEqual
+                                                          toItem:profPic
+                                                       attribute:NSLayoutAttributeHeight
+                                                      multiplier:1/1
+                                                        constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g5
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:img
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g5
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g5
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g5
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g5
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:35.0/145.0
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g6
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:img
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g6
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g6
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g6
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g6
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:750.0/35.0
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g7
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g7
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g7
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeLeft
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:g7
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g7
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:750.0/35.0
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g6
+                                                        attribute:NSLayoutAttributeBottom
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g5
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:lbl1
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:715.0/34.0
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                        attribute:NSLayoutAttributeBottom
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g7
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                        attribute:NSLayoutAttributeRight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:roomView
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                        attribute:NSLayoutAttributeLeft
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:g5
+                                                        attribute:NSLayoutAttributeRight
+                                                       multiplier:1
+                                                         constant:0]];
+    
+    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:lbl2
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:715.0/29.0
+                                                         constant:0]];
+    
+    if(last) {
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:scrollView
+                                                           attribute:NSLayoutAttributeBottom
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:roomView
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1
+                                                            constant:0]];
+    }
+
 }
 
 - (void)setConstraints {
@@ -320,205 +652,6 @@ float screenHeight;
                                                          attribute:NSLayoutAttributeLeft
                                                         multiplier:1
                                                           constant:0]];
-    
-    [homeView addConstraint:[NSLayoutConstraint constraintWithItem:scroll
-                                                         attribute:NSLayoutAttributeBottom
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:img2
-                                                         attribute:NSLayoutAttributeBottom
-                                                        multiplier:1
-                                                          constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img1
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:scroll
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img1
-                                                         attribute:NSLayoutAttributeCenterX
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:scroll
-                                                         attribute:NSLayoutAttributeCenterX
-                                                        multiplier:1
-                                                          constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img1
-                                                         attribute:NSLayoutAttributeWidth
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:scroll
-                                                         attribute:NSLayoutAttributeWidth
-                                                        multiplier:1
-                                                          constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img1
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:img1
-                                                       attribute:NSLayoutAttributeHeight
-                                                      multiplier:750.0/505.0
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:midView
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:img1
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:midView
-                                                       attribute:NSLayoutAttributeCenterX
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:scroll
-                                                       attribute:NSLayoutAttributeCenterX
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:midView
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:scroll
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:midView
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:midView
-                                                       attribute:NSLayoutAttributeHeight
-                                                      multiplier:750.0/145.0
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img2
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:midView
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img2
-                                                       attribute:NSLayoutAttributeCenterX
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:scroll
-                                                       attribute:NSLayoutAttributeCenterX
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img2
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:scroll
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:img2
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:img2
-                                                       attribute:NSLayoutAttributeHeight
-                                                      multiplier:750.0/505.0
-                                                        constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g1
-                                                     attribute:NSLayoutAttributeTop
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:img1
-                                                     attribute:NSLayoutAttributeTop
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g1
-                                                     attribute:NSLayoutAttributeBottom
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:img1
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g1
-                                                     attribute:NSLayoutAttributeRight
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:img1
-                                                     attribute:NSLayoutAttributeRight
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g1
-                                                     attribute:NSLayoutAttributeWidth
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:g1
-                                                     attribute:NSLayoutAttributeHeight
-                                                    multiplier:35.0/505.0
-                                                      constant:0]];
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g2
-                                                     attribute:NSLayoutAttributeBottom
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:img1
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g2
-                                                     attribute:NSLayoutAttributeRight
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:g1
-                                                     attribute:NSLayoutAttributeLeft
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g2
-                                                     attribute:NSLayoutAttributeWidth
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:g1
-                                                     attribute:NSLayoutAttributeHeight
-                                                    multiplier:18.0/101.0
-                                                      constant:0]];
-    
-    [img1 addConstraint:[NSLayoutConstraint constraintWithItem:g2
-                                                     attribute:NSLayoutAttributeWidth
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:g2
-                                                     attribute:NSLayoutAttributeHeight
-                                                    multiplier:2.0/1.0
-                                                      constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:g2
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                       attribute:NSLayoutAttributeRight
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:g2
-                                                       attribute:NSLayoutAttributeRight
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                       attribute:NSLayoutAttributeLeft
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:g2
-                                                       attribute:NSLayoutAttributeLeft
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [scroll addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:profPic
-                                                       attribute:NSLayoutAttributeHeight
-                                                      multiplier:1/1
-                                                        constant:0]];
     
     [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g3
                                                         attribute:NSLayoutAttributeTop
@@ -775,166 +908,6 @@ float screenHeight;
                                                        attribute:NSLayoutAttributeWidth
                                                       multiplier:1
                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g5
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g5
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g5
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g5
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g5
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:35.0/145.0
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g6
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g6
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g6
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g6
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g6
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:750.0/35.0
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g7
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g7
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g7
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:g7
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g7
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:750.0/35.0
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g6
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g5
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:lbl1
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:715.0/34.0
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g7
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:midView
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g5
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [midView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:lbl2
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:715.0/29.0
-                                                         constant:0]];
 
 }
 

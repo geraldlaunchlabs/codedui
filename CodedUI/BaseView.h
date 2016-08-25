@@ -16,7 +16,6 @@
 
 - (void)setupLayout;
 + (UIColor *)colorWithHexString:(NSString *)hex;
-+ (UIView *)createViewWithRect:(CGRect)rect;
 
 @end
 
