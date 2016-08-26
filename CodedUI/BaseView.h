@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) id <BaseViewDelegate> baseViewDelegate;
 
-- (void)setupLayout;
+- (void)setupLayout:(int)topLayoutGuide;
 + (UIColor *)colorWithHexString:(NSString *)hex;
 
 @end

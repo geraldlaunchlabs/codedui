@@ -11,8 +11,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface HomeViewController : BaseViewController <HomeViewDelegate> {
-    HomeView *homeView;
-    NSDictionary *data;
+    //HomeView *homeView;
 }
+
+@property (strong, nonatomic) IBOutlet HomeView *homeView;
 
 @end

@@ -14,109 +14,116 @@
 
 @implementation HomeViewController
 
+@synthesize homeView;
+
 - (void)loadView {
     [super viewDidLoad];
-    
-    
     [self initView];
-    [self getData];
-    [self dispDataContent];
+    [self dispDataContent:[self getData]];
     
     // Do any additional setup after loading the view.
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self setUI];
-    NSLog(@"\n\n\nappear...");
+- (IBAction)toggleSearch:(id)sender
+{
+    // do something or handle Search Button Action.
 }
 
 - (void)initView {
     homeView = [[HomeView alloc]init];
     homeView.baseViewDelegate = self;
     homeView.homeViewDelegate = self;
-    [homeView setupLayout];
+    [homeView setupLayout:(int)(self.navigationController.navigationBar.frame.size.height)];
     
     self.view = homeView;
-    
-    homeView.btn1.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    homeView.btn2.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    homeView.btn3.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    homeView.btn4.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    homeView.btn5.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    homeView.picArray = [NSMutableArray array];
-    homeView.label1Array = [NSMutableArray array];
-    homeView.label2Array = [NSMutableArray array];
 }
 
-- (void)getData {
-    data = @{@"data":@{
-                     @0:@{
-                             @"img":@"image1.jpg",
-                             @"lbl1":@"POKEMON FOR SALE",
-                             @"lbl2":@"Squirtle",
-                             @"profPic":@"squirtle.png",
-                             @"profPicAdd":@""
-                             },
-                     @1:@{
-                             @"img":@"image2.jpg",
-                             @"lbl1":@"POKEMON FOR SALE",
-                             @"lbl2":@"Chespin",
-                             @"profPic":@"chespin.png",
-                             @"profPicAdd":@""
-                             },
-                     @2:@{
-                             @"img":@"image3.jpg",
-                             @"lbl1":@"POKEMON FOR SALE",
-                             @"lbl2":@"Magmar",
-                             @"profPic":@"magmar.png",
-                             @"profPicAdd":@""
-                             },
-                     @3:@{
-                             @"img":@"image4.jpg",
-                             @"lbl1":@"POKEMON FOR SALE",
-                             @"lbl2":@"Vanillite",
-                             @"profPic":@"vanillite.png",
-                             @"profPicAdd":@""
-                             },
-                     @4:@{
-                             @"img":@"image5.jpg",
-                             @"lbl1":@"POKEMON FOR SALE",
-                             @"lbl2":@"Butterfree",
-                             @"profPic":@"butterfree.png",
-                             @"profPicAdd":@""
-                             }
-                     }
-             };
+- (NSArray *)getData {
+    NSArray *data = [NSArray arrayWithObjects:
+                       [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"image1.jpg",@"img",
+                        @"POKEMON FOR SALE",@"lbl1",
+                        @"Squirtle",@"lbl2",
+                        @"squirtle.png",@"profPic",
+                        nil],
+                       
+                       [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"image2.jpg",@"img",
+                        @"POKEMON FOR SALE",@"lbl1",
+                        @"Chespin",@"lbl2",
+                        @"chespin.png",@"profPic",
+                        nil],
+                       
+                       [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"image3.jpg",@"img",
+                        @"POKEMON FOR SALE",@"lbl1",
+                        @"Magmar",@"lbl2",
+                        @"magmar.png",@"profPic",
+                        nil],
+                       
+                       [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"image4.jpg",@"img",
+                        @"POKEMON FOR SALE",@"lbl1",
+                        @"Vanillite",@"lbl2",
+                        @"vanillite.png",@"profPic",
+                        nil],
+                       
+                       [NSDictionary dictionaryWithObjectsAndKeys:
+                        @"image5.jpg",@"img",
+                        @"POKEMON FOR SALE",@"lbl1",
+                        @"Butterfree",@"lbl2",
+                        @"butterfree.png",@"profPic",
+                        nil],
+                       nil];
+    return data;
 }
 
-- (void)dispDataContent {
+- (void)dispDataContent:(NSArray *)data {
     BOOL last = NO;
-    for(int i=0; i<[data[@"data"]count]; i++){
-        if(i == [data[@"data"]count]-1)
-            last = YES;
-        NSLog(@"\n\n\n%d",i);
-        [homeView addRoomViewOnScrollView:homeView.scroll widthToHeightRatio:750.0/650.0 data:data[@"data"][@(i)] last:last];
+    for(int i=0; i<[data count]; i++){
+        if(i == [data count]-1) last = YES;
+        
+        [homeView addRoomViewOnScrollView:homeView.scroll widthToHeightRatio:750.0/650.0 data:data[i] index:i last:last];
     }
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self setUI];
+- (void)viewDidAppear:(BOOL)animated {
+    [self adjustRoomViewSubviews];
 }
 
-- (void)setUI {
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self adjustRoomViewSubviews];
+}
+
+- (void)adjustRoomViewSubviews {
+    int i = 1;
+    UIImageView *profPic;
+    UILabel *lbl;
     
-    for(int i=0; i<[data[@"data"]count]; i++) {
-        homeView.profPic = homeView.picArray[i];
-        homeView.lbl1 = homeView.label1Array[i];
-        homeView.lbl2 = homeView.label2Array[i];
+    while([homeView.scroll viewWithTag:i++]) {
+        profPic = [homeView.scroll viewWithTag:i++];
+        profPic.layer.cornerRadius = profPic.frame.size.width/2;
+        profPic.layer.borderWidth = profPic.frame.size.width/25;
+        profPic.layer.borderColor = [UIColor whiteColor].CGColor;
+        profPic.clipsToBounds = YES;
         
-        homeView.profPic.layer.cornerRadius = homeView.profPic.frame.size.width/2;
-        homeView.profPic.layer.borderWidth = homeView.profPic.frame.size.width/25;
-        homeView.profPic.layer.borderColor = [UIColor whiteColor].CGColor;
-        homeView.profPic.clipsToBounds = YES;
-        homeView.lbl1.font = [UIFont systemFontOfSize:homeView.lbl1.frame.size.height-2];
-        homeView.lbl2.font = [UIFont systemFontOfSize:homeView.lbl2.frame.size.height-2];
+        
+        
+        [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
+                profPic.transform = CGAffineTransformMakeScale(3, 3);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
+                profPic.transform = CGAffineTransformMakeScale(1, 1);
+            }];
+        } completion:nil];
+        
+        
+        
+        lbl = [homeView.scroll viewWithTag:i++];
+        lbl.font = [UIFont systemFontOfSize:lbl.frame.size.height-2];
+        lbl = [homeView.scroll viewWithTag:i++];
+        lbl.font = [UIFont systemFontOfSize:lbl.frame.size.height-2];
     }
 }
 
@@ -124,15 +131,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
