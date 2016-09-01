@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "ProfileViewController.h"
+#import "ProfileBlockController.h"
 
 @interface AppDelegate ()
 
@@ -24,10 +26,14 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.autoresizesSubviews=YES;
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
+    //ProfileViewController *homeViewController = [[ProfileViewController alloc] init];
+    //ProfileBlockController *homeViewController = [[ProfileBlockController alloc] init];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    self.window.rootViewController = homeViewController;
+    self.window.rootViewController =
+                                        //homeViewController;
+                                        homeNav;
     [self.window makeKeyAndVisible];
-    [self.window addSubview:homeNav.view];
+    //[self.window addSubview:homeNav.view];
     
 //    HomeViewController *homeViewController = [[HomeViewController alloc] init];
 //    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];

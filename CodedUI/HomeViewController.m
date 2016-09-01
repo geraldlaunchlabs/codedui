@@ -33,7 +33,7 @@
     homeView = [[HomeView alloc]init];
     homeView.baseViewDelegate = self;
     homeView.homeViewDelegate = self;
-    [homeView setupLayout:(int)(self.navigationController.navigationBar.frame.size.height)];
+    [homeView setupLayout:(int)(self.navigationController.navigationBar.frame.size.height)+20];
     
     self.view = homeView;
 }
@@ -83,7 +83,7 @@
     for(int i=0; i<[data count]; i++){
         if(i == [data count]-1) last = YES;
         
-        [homeView addRoomViewOnScrollView:homeView.scroll widthToHeightRatio:750.0/650.0 data:data[i] index:i last:last];
+        [homeView addRoomViewOnScrollView:homeView.scroll data:data[i] index:i last:last];
     }
 }
 

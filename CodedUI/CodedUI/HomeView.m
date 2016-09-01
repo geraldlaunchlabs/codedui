@@ -8,16 +8,10 @@
 
 #import "HomeView.h"
 
-@implementation HomeView {
-    
-}
+@implementation HomeView
 
+@synthesize homeViewDelegate;
 @synthesize scroll;
-
-//profPic,btn1,btn2,btn3,btn4,btn5,lbl1,lbl2,upcomingBtn,previousBtn,botMenu,scroll,img,midView,img2,g1,g2,g3,g4,btnBar,g5,g6,g7,roomView,picArray,label1Array,label2Array;
-
-float screenWidth;
-float screenHeight;
 
 - (void)setupLayout:(int)topLayoutGuide {
     
@@ -37,52 +31,9 @@ float screenHeight;
     previousBtn.backgroundColor = [BaseView colorWithHexString:@"FD5055"];
     [self addSubview:previousBtn];
     
-    UIView *botMenu = [[UIView alloc]init];
+    BotMenu *botMenu = [[BotMenu alloc]init];
     botMenu.translatesAutoresizingMaskIntoConstraints = NO;
-    botMenu.backgroundColor = [UIColor whiteColor];
     [self addSubview:botMenu];
-    
-    UIView *g3 = [[UIView alloc]init];
-    g3.translatesAutoresizingMaskIntoConstraints = NO;
-    [botMenu addSubview:g3];
-    
-    UIView *g4 = [[UIView alloc]init];
-    g4.translatesAutoresizingMaskIntoConstraints = NO;
-    [botMenu addSubview:g4];
-    
-    UIView *btnBar = [[UIView alloc]init];
-    btnBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [botMenu addSubview:btnBar];
-    
-    UIButton *btn1 = [[UIButton alloc] init];
-    btn1.translatesAutoresizingMaskIntoConstraints = NO;
-    btn1.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [btn1 setImage:[UIImage imageNamed:@"airbnblogo.jpg"] forState:UIControlStateNormal];
-    [btnBar addSubview:btn1];
-    
-    UIButton *btn2 = [[UIButton alloc] init];
-    btn2.translatesAutoresizingMaskIntoConstraints = NO;
-    btn2.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [btn2 setImage:[UIImage imageNamed:@"heart.png"] forState:UIControlStateNormal];
-    [btnBar addSubview:btn2];
-    
-    UIButton *btn3 = [[UIButton alloc] init];
-    btn3.translatesAutoresizingMaskIntoConstraints = NO;
-    btn3.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [btn3 setImage:[UIImage imageNamed:@"mail.jpg"] forState:UIControlStateNormal];
-    [btnBar addSubview:btn3];
-    
-    UIButton *btn4 = [[UIButton alloc] init];
-    btn4.translatesAutoresizingMaskIntoConstraints = NO;
-    btn4.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [btn4 setImage:[UIImage imageNamed:@"briefcase.jpg"] forState:UIControlStateNormal];
-    [btnBar addSubview:btn4];
-    
-    UIButton *btn5 = [[UIButton alloc] init];
-    btn5.translatesAutoresizingMaskIntoConstraints = NO;
-    btn5.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [btn5 setImage:[UIImage imageNamed:@"profile.png"] forState:UIControlStateNormal];
-    [btnBar addSubview:btn5];
     
     scroll = [[UIScrollView alloc]init];
     scroll.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,36 +41,6 @@ float screenHeight;
     scroll.scrollEnabled = YES;
     [self addSubview:scroll];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                     attribute:NSLayoutAttributeTop
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeTop
-                                                    multiplier:1 constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                     attribute:NSLayoutAttributeBottom
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                     attribute:NSLayoutAttributeRight
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeRight
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                     attribute:NSLayoutAttributeLeft
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeLeft
-                                                    multiplier:1
-                                                      constant:0]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:upcomingBtn
                                                      attribute:NSLayoutAttributeTop
@@ -248,264 +169,6 @@ float screenHeight;
                                                      attribute:NSLayoutAttributeLeft
                                                     multiplier:1
                                                       constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g3
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g3
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g3
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g3
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g3
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:750.0/25.0
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g4
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g4
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g4
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:g4
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g4
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:750.0/25.0
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btnBar
-                                                        attribute:NSLayoutAttributeTop
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g3
-                                                        attribute:NSLayoutAttributeBottom
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btnBar
-                                                        attribute:NSLayoutAttributeBottom
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:g4
-                                                        attribute:NSLayoutAttributeTop
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btnBar
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btnBar
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:botMenu
-                                                        attribute:NSLayoutAttributeLeft
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn1
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn1
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn1
-                                                       attribute:NSLayoutAttributeLeft
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeLeft
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn2
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn2
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn2
-                                                       attribute:NSLayoutAttributeLeft
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn1
-                                                       attribute:NSLayoutAttributeRight
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn3
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn3
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn3
-                                                       attribute:NSLayoutAttributeLeft
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn2
-                                                       attribute:NSLayoutAttributeRight
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn4
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn4
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn4
-                                                       attribute:NSLayoutAttributeLeft
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn3
-                                                       attribute:NSLayoutAttributeRight
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn5
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn5
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btnBar
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btn5
-                                                        attribute:NSLayoutAttributeRight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:btnBar
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [botMenu addConstraint:[NSLayoutConstraint constraintWithItem:btn5
-                                                        attribute:NSLayoutAttributeLeft
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:btn4
-                                                        attribute:NSLayoutAttributeRight
-                                                       multiplier:1
-                                                         constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn1
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn2
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn2
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn3
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn3
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn4
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [btnBar addConstraint:[NSLayoutConstraint constraintWithItem:btn4
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:btn5
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-
-    
 }
 
 - (void) addRoomViewOnScrollView:(UIScrollView *)scrollView data:(NSDictionary *)data index:(int)i last:(BOOL)last{
@@ -514,14 +177,16 @@ float screenHeight;
     if(i > 0) prevRoomView = (UIView *)[scrollView viewWithTag:1+(i-1)*4];
     else prevRoomView = nil;
     
-    UIView *roomView = [[UIView alloc]init];
+    UIButton *roomView = [[UIButton alloc]init];
     roomView.translatesAutoresizingMaskIntoConstraints = NO;
     roomView.tag = 1+i*4;
+    [roomView addTarget:homeViewDelegate action:@selector(gotoProfile:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:roomView];
     
     UIImageView *img = [[UIImageView alloc]init];
     img.translatesAutoresizingMaskIntoConstraints = NO;
     img.image = [UIImage imageNamed:data[@"img"]];
+    //[img setImage:[UIImage imageNamed:data[@"img"]] forState:UIControlStateNormal];
     [roomView addSubview:img];
     
     UIView *g1 = [[UIView alloc]init];
@@ -532,10 +197,9 @@ float screenHeight;
     g2.translatesAutoresizingMaskIntoConstraints = NO;
     [img addSubview:g2];
     
-    UIImageView *profPic = [[UIImageView alloc] initWithImage:[UIImage imageNamed:data[@"img"]]];
+    UIImageView *profPic = [[UIImageView alloc] init];
     profPic.translatesAutoresizingMaskIntoConstraints = NO;
     profPic.image = [UIImage imageNamed:data[@"profPic"]];
-    //profPic.backgroundColor = [BaseView colorWithHexString:@"014A88"];
     profPic.contentMode = UIViewContentModeScaleAspectFill;
     profPic.tag = 2+i*4;
     [scrollView addSubview:profPic];
