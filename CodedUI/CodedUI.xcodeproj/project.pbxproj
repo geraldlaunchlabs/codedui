@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6032E5901D7802B70020B873 /* ProfileBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6032E58F1D7802B70020B873 /* ProfileBlock.m */; };
-		6032E5971D78061E0020B873 /* ProfileBlockController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6032E5961D78061E0020B873 /* ProfileBlockController.m */; };
 		603474B71D704D1400349FE2 /* image3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 603474B61D704D1400349FE2 /* image3.jpg */; };
 		603474B91D704D2100349FE2 /* image2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 603474B81D704D2100349FE2 /* image2.jpg */; };
 		603798CD1D6D6A58004ABA58 /* image1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 603798CC1D6D6A58004ABA58 /* image1.jpg */; };
@@ -62,8 +61,6 @@
 /* Begin PBXFileReference section */
 		6032E58E1D7802B70020B873 /* ProfileBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileBlock.h; sourceTree = "<group>"; };
 		6032E58F1D7802B70020B873 /* ProfileBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileBlock.m; sourceTree = "<group>"; };
-		6032E5951D78061E0020B873 /* ProfileBlockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileBlockController.h; sourceTree = "<group>"; };
-		6032E5961D78061E0020B873 /* ProfileBlockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileBlockController.m; sourceTree = "<group>"; };
 		603474B61D704D1400349FE2 /* image3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image3.jpg; sourceTree = "<group>"; };
 		603474B81D704D2100349FE2 /* image2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image2.jpg; sourceTree = "<group>"; };
 		603798CC1D6D6A58004ABA58 /* image1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image1.jpg; sourceTree = "<group>"; };
@@ -141,8 +138,6 @@
 			children = (
 				6032E58E1D7802B70020B873 /* ProfileBlock.h */,
 				6032E58F1D7802B70020B873 /* ProfileBlock.m */,
-				6032E5951D78061E0020B873 /* ProfileBlockController.h */,
-				6032E5961D78061E0020B873 /* ProfileBlockController.m */,
 			);
 			name = ProfileBlock;
 			sourceTree = "<group>";
@@ -425,7 +420,6 @@
 				6068D1621D76822300DA15E6 /* HomeView.m in Sources */,
 				6068D1671D7682D300DA15E6 /* ProfileView.m in Sources */,
 				6059E3191D6C40B7000405C4 /* main.m in Sources */,
-				6032E5971D78061E0020B873 /* ProfileBlockController.m in Sources */,
 				6068D1631D76822300DA15E6 /* HomeViewController.m in Sources */,
 				6068D16F1D76947900DA15E6 /* BotMenu.m in Sources */,
 				6059E3551D6C464A000405C4 /* BaseView.m in Sources */,

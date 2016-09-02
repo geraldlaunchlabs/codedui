@@ -8,7 +8,7 @@
 
 #import "BaseView.h"
 
-@interface ProfileBlock : BaseView
+@interface ProfileBlock : UIView
 
 @property (strong, nonatomic) IBOutlet UILabel *header;
 @property (strong, nonatomic) IBOutlet UITextView *content;

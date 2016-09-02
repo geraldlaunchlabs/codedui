@@ -17,8 +17,7 @@
     self = [super init];
     if (self) {
     
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        CGFloat screenWidth = screenRect.size.width;
+        CGFloat screenWidth = [[UIScreen mainScreen]bounds].size.width;
         
         self.backgroundColor = [UIColor whiteColor];
         
@@ -39,17 +38,13 @@
         content.tag = 2;
         [self addSubview:content];
         
-        
-        
-        
-        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:header
                                                          attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self
                                                          attribute:NSLayoutAttributeTop
                                                         multiplier:1
-                                                          constant:screenWidth/6.25]];
+                                                          constant:screenWidth/15]];
         
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:header
@@ -82,7 +77,7 @@
                                                             toItem:self
                                                          attribute:NSLayoutAttributeTop
                                                         multiplier:1
-                                                          constant:screenWidth/3.40909090909091]];
+                                                          constant:screenWidth/5]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                               attribute:NSLayoutAttributeLeft
