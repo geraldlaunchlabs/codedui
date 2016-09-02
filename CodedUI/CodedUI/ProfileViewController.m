@@ -8,9 +8,7 @@
 
 #import "ProfileViewController.h"
 
-@interface ProfileViewController () {
-    IBOutlet NSLayoutConstraint *_leadingSpaceConstraint;
-}
+@interface ProfileViewController ()
 
 @end
 
@@ -27,24 +25,34 @@
     profileView = [[ProfileView alloc]init];
     profileView.baseViewDelegate = self;
     profileView.profileViewDelegate = self;
-    [profileView setupLayout:(int)(self.navigationController.navigationBar.frame.size.height)+20];
+    [profileView setupLayout];
     
     self.view = profileView;
     
-    ((UIImageView *)[profileView.scroll viewWithTag:1]).image = [UIImage imageNamed:data[@"img"]];
-    ((UIImageView *)[profileView.scroll viewWithTag:2]).image = [UIImage imageNamed:data[@"profPic"]];
+    ((UIImageView *)[profileView viewWithTag:1]).image = [UIImage imageNamed:data[@"img"]];
+    ((UIImageView *)[profileView viewWithTag:2]).image = [UIImage imageNamed:data[@"profPic"]];
     [profileView addProfileBlockToScrollView:profileView.scroll header:data[@"lbl2"] content:data[@"description"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Anatomy" content:data[@"anatomy"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Characteristics" content:data[@"characteristics"] last:YES];
 }
 
 - (void)viewDidLayoutSubviews {
-    UIImageView *Search = (UIImageView *)[profileView.scroll viewWithTag:3];
+    profileView.scroll.delegate = self;
+    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
     Search.layer.cornerRadius = Search.frame.size.width/2;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    UIImageView *Search = (UIImageView *)[profileView.scroll viewWithTag:6];
+    profileView.scroll.delegate = self;
+    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
     Search.layer.cornerRadius = Search.frame.size.width/2;
 }
 

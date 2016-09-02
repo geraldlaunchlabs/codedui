@@ -25,7 +25,7 @@
     homeView = [[HomeView alloc]init];
     homeView.baseViewDelegate = self;
     homeView.homeViewDelegate = self;
-    [homeView setupLayout:(int)(self.navigationController.navigationBar.frame.size.height)+20];
+    [homeView setupLayout];
     
     self.view = homeView;
 }
@@ -107,6 +107,10 @@
     UIImageView *profPic;
     UILabel *lbl;
     
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.translucent = NO;
+    
     while([homeView.scroll viewWithTag:i++]) {
         profPic = [homeView.scroll viewWithTag:i++];
         profPic.layer.cornerRadius = profPic.frame.size.width/2;
@@ -114,14 +118,14 @@
         profPic.layer.borderColor = [UIColor whiteColor].CGColor;
         profPic.clipsToBounds = YES;
         
-//        [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
-//            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
-//                profPic.transform = CGAffineTransformMakeScale(3, 3);
-//            }];
-//            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
-//                profPic.transform = CGAffineTransformMakeScale(1, 1);
-//            }];
-//        } completion:nil];
+        [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
+            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
+                profPic.transform = CGAffineTransformMakeScale(3, 3);
+            }];
+            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
+                profPic.transform = CGAffineTransformMakeScale(1, 1);
+            }];
+        } completion:nil];
         
         
         lbl = [homeView.scroll viewWithTag:i++];

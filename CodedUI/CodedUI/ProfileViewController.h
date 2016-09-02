@@ -10,7 +10,7 @@
 #import "ProfileView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ProfileViewController : BaseViewController <ProfileViewDelegate> {
+@interface ProfileViewController : BaseViewController <ProfileViewDelegate,UIScrollViewDelegate> {
     ProfileView *profileView;
 }
 

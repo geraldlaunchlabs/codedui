@@ -25,11 +25,11 @@
     return self;
 }
 
-- (void)setupLayout:(int)topLayoutGuide {
+- (void)setupLayout {
     
 }
 
-+ (UIColor *)colorWithHexString:(NSString *)hex{
++ (UIColor *)colorWithHexString:(NSString *)hex {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
     
     // String should be 6 characters
@@ -65,35 +65,43 @@
     return [UIColor colorWithRed:((float) r / 255.0f) green:((float) g / 255.0f) blue:((float) b / 255.0f) alpha:1.0f];
 }
 
-+ (UIButton *)createButtonWithPath:(NSString *)path withRect:(CGRect)rect{
-    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:nil]];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    if(rect.size.width <= 0 && rect.size.height <= 0){
-        btn.frame = CGRectMake(rect.origin.x, rect.origin.y, image.size.width, image.size.height);
++ (UIColor *)averageColorOfImage:(UIImage*)image {
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    unsigned char rgba[4];
+    CGContextRef context = CGBitmapContextCreate(rgba, 1, 1, 8, 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextDrawImage(context, CGRectMake(0, 0, 1, 1), image.CGImage);
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    if(rgba[3] > 0) {
+        CGFloat alpha = ((CGFloat)rgba[3])/255.0;
+        CGFloat multiplier = alpha/255.0;
+        return [UIColor colorWithRed:((CGFloat)rgba[0])*multiplier
+                               green:((CGFloat)rgba[1])*multiplier
+                                blue:((CGFloat)rgba[2])*multiplier
+                               alpha:alpha];
+    }else {
+        return [UIColor colorWithRed:((CGFloat)rgba[0])/255.0
+                               green:((CGFloat)rgba[1])/255.0
+                                blue:((CGFloat)rgba[2])/255.0
+                               alpha:((CGFloat)rgba[3])/255.0];
     }
-    else {
-        btn.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-    }
-    
-    [btn setImage:image forState:UIControlStateNormal];
-    btn.exclusiveTouch = YES;
-    return btn;
 }
 
-+ (UIImageView *)createImageWithPath:(NSString *)path withRect:(CGRect)rect{
-    
-    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:nil]];
-    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)];
-    
-    if(rect.size.width <= 0 && rect.size.height <= 0){
-        imgView.frame = CGRectMake(rect.origin.x, rect.origin.y, image.size.width, image.size.height);
++ (UIColor *)changeOpacity:(UIColor*)color amount:(CGFloat)amount {
+    CGFloat hue, saturation, brightness, alpha;
+    if ([color getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha]) {
+        alpha += (amount-1.0);
+        alpha = MAX(MIN(alpha, 1.0), 0.0);
+        return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
     }
     
-    imgView.image = image;
-    imgView.clipsToBounds = YES;
-    imgView.contentMode = UIViewContentModeScaleAspectFill;
-    return imgView;
+    CGFloat white;
+    if ([color getWhite:&white alpha:&alpha]) {
+        white += (amount-1.0);
+        white = MAX(MIN(white, 1.0), 0.0);
+        return [UIColor colorWithWhite:white alpha:alpha];
+    }
+    return nil;
 }
 
 @end

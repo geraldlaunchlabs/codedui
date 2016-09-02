@@ -14,8 +14,10 @@
 
 @property (nonatomic, strong) id <BaseViewDelegate> baseViewDelegate;
 
-- (void)setupLayout:(int)topLayoutGuide;
+- (void)setupLayout;
 + (UIColor *)colorWithHexString:(NSString *)hex;
++ (UIColor *)averageColorOfImage:(UIImage*)image;
++ (UIColor *)changeOpacity:(UIColor*)color amount:(CGFloat)amount;
 
 @end
 

@@ -19,8 +19,6 @@
     
         CGFloat screenWidth = [[UIScreen mainScreen]bounds].size.width;
         
-        self.backgroundColor = [UIColor whiteColor];
-        
         header = [[UILabel alloc]init];
         header.translatesAutoresizingMaskIntoConstraints = NO;
         header.font = [UIFont systemFontOfSize:screenWidth/(750/70)];
@@ -68,16 +66,16 @@
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:header
                                                               attribute:NSLayoutAttributeHeight
-                                                             multiplier:715.0/72.0
+                                                             multiplier:715.0/85.0
                                                                constant:0]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                          attribute:NSLayoutAttributeTop
                                                          relatedBy:NSLayoutRelationEqual
-                                                            toItem:self
-                                                         attribute:NSLayoutAttributeTop
+                                                            toItem:header
+                                                         attribute:NSLayoutAttributeBottom
                                                         multiplier:1
-                                                          constant:screenWidth/5]];
+                                                          constant:screenWidth/30]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                               attribute:NSLayoutAttributeLeft
@@ -92,7 +90,7 @@
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self
                                                               attribute:NSLayoutAttributeCenterX
-                                                             multiplier:(750-35)/375.0
+                                                             multiplier:(750.0-35.0)/375.0
                                                                constant:0]];
     }
     return self;

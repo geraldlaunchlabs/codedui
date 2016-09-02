@@ -13,7 +13,7 @@
 @synthesize homeViewDelegate;
 @synthesize scroll;
 
-- (void)setupLayout:(int)topLayoutGuide {
+- (void)setupLayout {
     
     UIButton *upcomingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     upcomingBtn.translatesAutoresizingMaskIntoConstraints = NO;
@@ -48,7 +48,7 @@
                                                         toItem:self
                                                      attribute:NSLayoutAttributeTop
                                                     multiplier:1
-                                                      constant:topLayoutGuide]];
+                                                      constant:0]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:upcomingBtn
                                                      attribute:NSLayoutAttributeLeft
