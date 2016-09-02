@@ -145,7 +145,7 @@
     push.coverPhoto = [self getData][i][@"img"];
     push.data = [self getData][i];
     
-    [self.navigationController pushViewController:push animated:NO];
+    [self.navigationController pushViewController:push animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

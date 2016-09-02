@@ -142,6 +142,15 @@
 			name = ProfileBlock;
 			sourceTree = "<group>";
 		};
+		6042AAF31D7989FE004639DF /* Bot Menu */ = {
+			isa = PBXGroup;
+			children = (
+				6068D16D1D76947900DA15E6 /* BotMenu.h */,
+				6068D16E1D76947900DA15E6 /* BotMenu.m */,
+			);
+			name = "Bot Menu";
+			sourceTree = "<group>";
+		};
 		6059E30B1D6C40B7000405C4 = {
 			isa = PBXGroup;
 			children = (
@@ -183,12 +192,11 @@
 		6059E3161D6C40B7000405C4 /* CodedUI */ = {
 			isa = PBXGroup;
 			children = (
-				6068D16D1D76947900DA15E6 /* BotMenu.h */,
-				6068D16E1D76947900DA15E6 /* BotMenu.m */,
 				6068D1691D76830700DA15E6 /* AppDelegate */,
+				6042AAF31D7989FE004639DF /* Bot Menu */,
+				6032E5911D7805CB0020B873 /* ProfileBlock */,
 				6059E3561D6C4651000405C4 /* BaseView */,
 				6068D1641D76822B00DA15E6 /* HomeView */,
-				6032E5911D7805CB0020B873 /* ProfileBlock */,
 				6068D1681D7682E600DA15E6 /* ProfileView */,
 				6059E3261D6C40B7000405C4 /* Assets.xcassets */,
 				6059E32B1D6C40B7000405C4 /* Info.plist */,

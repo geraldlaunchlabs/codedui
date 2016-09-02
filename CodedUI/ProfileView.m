@@ -23,14 +23,9 @@
     UIImageView *coverPhoto = [[UIImageView alloc]init];
     coverPhoto.translatesAutoresizingMaskIntoConstraints = NO;
     coverPhoto.contentMode = UIViewContentModeScaleAspectFill;
+    coverPhoto.clipsToBounds = YES;
     coverPhoto.tag = 1;
     [self addSubview:coverPhoto];
-    
-    UIImageView *profPic = [[UIImageView alloc]init];
-    profPic.translatesAutoresizingMaskIntoConstraints = NO;
-    profPic.contentMode = UIViewContentModeScaleAspectFill;
-    profPic.tag = 2;
-    [self addSubview:profPic];
     
     scroll = [[UIScrollView alloc]init];
     scroll.translatesAutoresizingMaskIntoConstraints = NO;
@@ -75,11 +70,6 @@
                                                        attribute:NSLayoutAttributeHeight
                                                       multiplier:750.0/725.0
                                                         constant:0]];
-    
-    
-    
-    
-    
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
                                                      attribute:NSLayoutAttributeBottom
@@ -144,38 +134,6 @@
                                                      attribute:NSLayoutAttributeLeft
                                                     multiplier:1
                                                       constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeBottom
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:coverPhoto
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1.0/1.125
-                                                            constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeRight
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:coverPhoto
-                                                           attribute:NSLayoutAttributeRight
-                                                          multiplier:1.0/1.125
-                                                            constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:coverPhoto
-                                                           attribute:NSLayoutAttributeWidth
-                                                          multiplier:1.0/3.0
-                                                            constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:profPic
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:1/1
-                                                            constant:0]];
 }
 
 - (void)addProfileBlockToScrollView:(UIScrollView *)scrollView header:(NSString *)header content:(NSString *)content last:(BOOL)last {
@@ -190,7 +148,7 @@
     profileBlock.content.text = content;
     profileBlock.header.textColor = aveColor;
     profileBlock.content.textColor = aveColor;
-    profileBlock.backgroundColor = [UIColor whiteColor]; //[BaseView changeOpacity:aveColor amount:0.25];
+    profileBlock.backgroundColor = [UIColor whiteColor];
     profileBlock.content.backgroundColor = [BaseView changeOpacity:aveColor amount:0.125];
     profileBlock.tag = i++;
     profileBlock.header.tag = i++;
@@ -202,86 +160,124 @@
         spc.translatesAutoresizingMaskIntoConstraints = NO;
         spc.backgroundColor = aveColor;
         [scrollView addSubview:spc];
+       
+        UIImageView *profPic = [[UIImageView alloc]init];
+        profPic.translatesAutoresizingMaskIntoConstraints = NO;
+        profPic.contentMode = UIViewContentModeScaleAspectFit;
+        profPic.tag = 2;
+        [scrollView addSubview:profPic];
         
         UIButton *search = [[UIButton alloc]init];
         search.translatesAutoresizingMaskIntoConstraints = NO;
         [search setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
         search.backgroundColor = aveColor;
-        search.contentMode = UIViewContentModeScaleAspectFill;
+        search.contentMode = UIViewContentModeScaleAspectFit;
         search.tag = 3;
         [scrollView addSubview:search];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:spc
-                                                           attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:scrollView
-                                                           attribute:NSLayoutAttributeTop
-                                                          multiplier:1
-                                                            constant:[[UIScreen mainScreen]bounds].size.width/(750.0/725.0)]];
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:scrollView
+                                                         attribute:NSLayoutAttributeTop
+                                                        multiplier:1
+                                                          constant:[[UIScreen mainScreen]bounds].size.width/(750.0/725.0)]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:spc
-                                                           attribute:NSLayoutAttributeBottom
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:search
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1/1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:search
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1/1
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:spc
-                                                           attribute:NSLayoutAttributeCenterX
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:scrollView
-                                                           attribute:NSLayoutAttributeCenterX
-                                                          multiplier:1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:scrollView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:spc
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:scrollView
-                                                           attribute:NSLayoutAttributeWidth
-                                                          multiplier:1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:scrollView
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
-                                                           attribute:NSLayoutAttributeCenterY
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:spc
-                                                           attribute:NSLayoutAttributeTop
-                                                          multiplier:1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeCenterY
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeTop
+                                                              multiplier:1
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
-                                                           attribute:NSLayoutAttributeLeft
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:spc
-                                                           attribute:NSLayoutAttributeCenterX
-                                                          multiplier:30.0/375.0
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeLeft
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:30.0/375.0
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:spc
-                                                           attribute:NSLayoutAttributeWidth
-                                                          multiplier:140.0/750.0
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:140.0/750.0
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:search
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:1/1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:search
+                                                               attribute:NSLayoutAttributeHeight
+                                                              multiplier:1/1
+                                                                constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
-                                                           attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:spc
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeTop
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1
+                                                                constant:0]];
+        
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeCenterY
+                                                              multiplier:1
+                                                                constant:0]];
+        
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                               attribute:NSLayoutAttributeRight
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:720.0/375.0
+                                                                constant:0]];
+        
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:spc
+                                                               attribute:NSLayoutAttributeWidth
+                                                              multiplier:1.0/3.0
+                                                                constant:0]];
+        
+        [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                               attribute:NSLayoutAttributeWidth
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:profPic
+                                                               attribute:NSLayoutAttributeHeight
+                                                              multiplier:1/1
+                                                                constant:0]];
     } else {
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
                                                                attribute:NSLayoutAttributeTop
@@ -293,39 +289,39 @@
     }
     
     [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
-                                                       attribute:NSLayoutAttributeBottom
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:profileBlock.content
-                                                       attribute:NSLayoutAttributeBottom
-                                                      multiplier:1
-                                                        constant:[[UIScreen mainScreen]bounds].size.width/15]];
+                                                           attribute:NSLayoutAttributeBottom
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:profileBlock.content
+                                                           attribute:NSLayoutAttributeBottom
+                                                          multiplier:1
+                                                            constant:[[UIScreen mainScreen]bounds].size.width/15]];
     
     
     [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
-                                                     attribute:NSLayoutAttributeCenterX
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:scrollView
-                                                     attribute:NSLayoutAttributeCenterX
-                                                    multiplier:1
-                                                      constant:0]];
+                                                           attribute:NSLayoutAttributeCenterX
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:scrollView
+                                                           attribute:NSLayoutAttributeCenterX
+                                                          multiplier:1
+                                                            constant:0]];
     
     [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
-                                                     attribute:NSLayoutAttributeWidth
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:scrollView
-                                                     attribute:NSLayoutAttributeWidth
-                                                    multiplier:1
-                                                      constant:0]];
+                                                           attribute:NSLayoutAttributeWidth
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:scrollView
+                                                           attribute:NSLayoutAttributeWidth
+                                                          multiplier:1
+                                                            constant:0]];
     
     if(last) {
         i = 4;
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:scrollView
-                                                           attribute:NSLayoutAttributeBottom
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:profileBlock
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1
-                                                            constant:0]];
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:profileBlock
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1
+                                                                constant:0]];
     }
 }
 

@@ -30,10 +30,10 @@
     self.view = profileView;
     
     ((UIImageView *)[profileView viewWithTag:1]).image = [UIImage imageNamed:data[@"img"]];
-    ((UIImageView *)[profileView viewWithTag:2]).image = [UIImage imageNamed:data[@"profPic"]];
     [profileView addProfileBlockToScrollView:profileView.scroll header:data[@"lbl2"] content:data[@"description"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Anatomy" content:data[@"anatomy"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Characteristics" content:data[@"characteristics"] last:YES];
+    ((UIImageView *)[profileView.scroll viewWithTag:2]).image = [UIImage imageNamed:data[@"profPic"]];
 }
 
 - (void)viewDidLayoutSubviews {
