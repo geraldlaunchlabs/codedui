@@ -19,6 +19,12 @@
 - (void)loadView {
     [super viewDidLoad];
     [self initView];
+    
+    profileView.scroll.delegate = self;
+    
+    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)initView {
@@ -37,26 +43,14 @@
 }
 
 - (void)viewDidLayoutSubviews {
-    profileView.scroll.delegate = self;
-    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
-    
     UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
     Search.layer.cornerRadius = Search.frame.size.width/2;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    profileView.scroll.delegate = self;
-    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
-    
     UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
     Search.layer.cornerRadius = Search.frame.size.width/2;
 }
-
-//- (void)adjust
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

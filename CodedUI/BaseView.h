@@ -18,6 +18,8 @@
 + (UIColor *)colorWithHexString:(NSString *)hex;
 + (UIColor *)averageColorOfImage:(UIImage*)image;
 + (UIColor *)changeOpacity:(UIColor*)color amount:(CGFloat)amount;
++ (CGFloat)getPortraitWidth;
++ (BOOL)isPortrait;
 
 @end
 

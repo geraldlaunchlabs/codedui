@@ -104,4 +104,18 @@
     return nil;
 }
 
++ (CGFloat)getPortraitWidth {
+    CGSize screenSize;
+    screenSize = [[UIScreen mainScreen]bounds].size;
+    if(screenSize.height > screenSize.width) return screenSize.width;
+    else return screenSize.height;
+}
+
++ (BOOL)isPortrait {
+    CGSize screenSize;
+    screenSize = [[UIScreen mainScreen]bounds].size;
+    if(screenSize.height > screenSize.width) return YES;
+    else return NO;
+}
+
 @end

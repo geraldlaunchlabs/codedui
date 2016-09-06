@@ -96,6 +96,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self adjustRoomViewSubviews];
+    self.navigationController.navigationBar.barTintColor = [BaseView colorWithHexString:@"FD5055"];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -106,10 +109,6 @@
     int i = 1;
     UIImageView *profPic;
     UILabel *lbl;
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.translucent = NO;
     
     while([homeView.scroll viewWithTag:i++]) {
         profPic = [homeView.scroll viewWithTag:i++];
@@ -142,7 +141,6 @@
     
     int i = (int)(-1+(((UIButton *)sender).tag+3)/4);
     
-    push.coverPhoto = [self getData][i][@"img"];
     push.data = [self getData][i];
     
     [self.navigationController pushViewController:push animated:YES];

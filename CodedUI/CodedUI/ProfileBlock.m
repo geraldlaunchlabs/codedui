@@ -16,12 +16,10 @@
 {
     self = [super init];
     if (self) {
-    
-        CGFloat screenWidth = [[UIScreen mainScreen]bounds].size.width;
         
         header = [[UILabel alloc]init];
         header.translatesAutoresizingMaskIntoConstraints = NO;
-        header.font = [UIFont systemFontOfSize:screenWidth/(750/70)];
+        header.font = [UIFont systemFontOfSize:[BaseView getPortraitWidth]/(750.0/70.0)];
         header.text = @"Squirtle";
         header.tag = 1;
         [self addSubview:header];
@@ -42,16 +40,16 @@
                                                             toItem:self
                                                          attribute:NSLayoutAttributeTop
                                                         multiplier:1
-                                                          constant:screenWidth/15]];
+                                                          constant:[BaseView getPortraitWidth]/15.0]];
         
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:header
                                                               attribute:NSLayoutAttributeLeft
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self
-                                                              attribute:NSLayoutAttributeCenterX
-                                                             multiplier:35.0/375.0
-                                                               constant:0]];
+                                                              attribute:NSLayoutAttributeLeft
+                                                             multiplier:1
+                                                               constant:[BaseView getPortraitWidth]/(750.0/35.0)]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:header
                                                               attribute:NSLayoutAttributeRight
@@ -62,12 +60,12 @@
                                                                constant:0]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:header
-                                                              attribute:NSLayoutAttributeWidth
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:header
                                                               attribute:NSLayoutAttributeHeight
-                                                             multiplier:715.0/85.0
-                                                               constant:0]];
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:nil
+                                                              attribute:NSLayoutAttributeNotAnAttribute
+                                                             multiplier:1
+                                                               constant:([BaseView getPortraitWidth]/(750.0/80.0))]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                          attribute:NSLayoutAttributeTop
@@ -75,23 +73,23 @@
                                                             toItem:header
                                                          attribute:NSLayoutAttributeBottom
                                                         multiplier:1
-                                                          constant:screenWidth/30]];
+                                                          constant:[BaseView getPortraitWidth]/30.0]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                               attribute:NSLayoutAttributeLeft
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self
-                                                              attribute:NSLayoutAttributeCenterX
-                                                             multiplier:35.0/375.0
-                                                               constant:0]];
+                                                              attribute:NSLayoutAttributeLeft
+                                                             multiplier:1
+                                                               constant:[BaseView getPortraitWidth]/(750.0/35.0)]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:content
                                                               attribute:NSLayoutAttributeRight
                                                               relatedBy:NSLayoutRelationEqual
                                                                  toItem:self
-                                                              attribute:NSLayoutAttributeCenterX
-                                                             multiplier:(750.0-35.0)/375.0
-                                                               constant:0]];
+                                                              attribute:NSLayoutAttributeRight
+                                                             multiplier:1
+                                                               constant:-[BaseView getPortraitWidth]/(750.0/35.0)]];
     }
     return self;
 }

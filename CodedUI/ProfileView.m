@@ -36,72 +36,71 @@
     
     BotMenu *botMenu = [[BotMenu alloc]init];
     botMenu.translatesAutoresizingMaskIntoConstraints = NO;
-    botMenu.backgroundColor =[UIColor whiteColor];
     [self addSubview:botMenu];
 
     [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
-                                                       attribute:NSLayoutAttributeTop
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeTop
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
-                                                       attribute:NSLayoutAttributeCenterX
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeCenterX
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1
-                                                        constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationEqual
-                                                          toItem:coverPhoto
-                                                       attribute:NSLayoutAttributeHeight
-                                                      multiplier:750.0/725.0
-                                                        constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
-                                                     attribute:NSLayoutAttributeBottom
+                                                     attribute:NSLayoutAttributeTop
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self
-                                                     attribute:NSLayoutAttributeBottom
+                                                     attribute:NSLayoutAttributeTop
                                                     multiplier:1
                                                       constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
-                                                     attribute:NSLayoutAttributeRight
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
+                                                     attribute:NSLayoutAttributeCenterX
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self
-                                                     attribute:NSLayoutAttributeRight
+                                                     attribute:NSLayoutAttributeCenterX
                                                     multiplier:1
                                                       constant:0]];
     
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
-                                                     attribute:NSLayoutAttributeLeft
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeLeft
-                                                    multiplier:1
-                                                      constant:0]];
-    
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
                                                      attribute:NSLayoutAttributeWidth
                                                      relatedBy:NSLayoutRelationEqual
-                                                        toItem:botMenu
-                                                     attribute:NSLayoutAttributeHeight
-                                                    multiplier:750.0/100.0
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeWidth
+                                                    multiplier:1
                                                       constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:coverPhoto
+                                                     attribute:NSLayoutAttributeHeight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1
+                                                      constant:[BaseView getPortraitWidth]/(750.0/725.0)]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
+                                                     attribute:NSLayoutAttributeRight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeRight
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
+                                                     attribute:NSLayoutAttributeLeft
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:self
+                                                     attribute:NSLayoutAttributeLeft
+                                                    multiplier:1
+                                                      constant:0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:botMenu
+                                                     attribute:NSLayoutAttributeHeight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:nil
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1
+                                                      constant:[BaseView getPortraitWidth]/7.5]];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:scroll
                                                      attribute:NSLayoutAttributeTop
@@ -148,7 +147,7 @@
     profileBlock.content.text = content;
     profileBlock.header.textColor = aveColor;
     profileBlock.content.textColor = aveColor;
-    profileBlock.backgroundColor = [UIColor whiteColor];
+    profileBlock.backgroundColor = [BaseView changeOpacity:[UIColor whiteColor] amount:0.9375];
     profileBlock.content.backgroundColor = [BaseView changeOpacity:aveColor amount:0.125];
     profileBlock.tag = i++;
     profileBlock.header.tag = i++;
@@ -181,7 +180,7 @@
                                                             toItem:scrollView
                                                          attribute:NSLayoutAttributeTop
                                                         multiplier:1
-                                                          constant:[[UIScreen mainScreen]bounds].size.width/(750.0/725.0)]];
+                                                          constant:[BaseView getPortraitWidth]/(750.0/725.0)]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:spc
                                                                attribute:NSLayoutAttributeBottom
@@ -219,17 +218,17 @@
                                                                attribute:NSLayoutAttributeLeft
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:spc
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:30.0/375.0
-                                                                constant:0]];
+                                                               attribute:NSLayoutAttributeLeft
+                                                              multiplier:1
+                                                                constant:[BaseView getPortraitWidth]/25.0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
                                                                attribute:NSLayoutAttributeWidth
                                                                relatedBy:NSLayoutRelationEqual
-                                                                  toItem:spc
-                                                               attribute:NSLayoutAttributeWidth
-                                                              multiplier:140.0/750.0
-                                                                constant:0]];
+                                                                  toItem:nil
+                                                               attribute:NSLayoutAttributeNotAnAttribute
+                                                              multiplier:1
+                                                                constant:[BaseView getPortraitWidth]/(750.0/140.0)]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:search
                                                                attribute:NSLayoutAttributeWidth
@@ -259,16 +258,16 @@
                                                                attribute:NSLayoutAttributeRight
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:spc
-                                                               attribute:NSLayoutAttributeCenterX
-                                                              multiplier:720.0/375.0
-                                                                constant:0]];
+                                                               attribute:NSLayoutAttributeRight
+                                                              multiplier:1
+                                                                constant:-[BaseView getPortraitWidth]/25.0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
                                                                attribute:NSLayoutAttributeWidth
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:spc
-                                                               attribute:NSLayoutAttributeWidth
-                                                              multiplier:1.0/3.0
+                                                               attribute:NSLayoutAttributeHeight
+                                                              multiplier:3.0/1.0
                                                                 constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
@@ -294,7 +293,7 @@
                                                               toItem:profileBlock.content
                                                            attribute:NSLayoutAttributeBottom
                                                           multiplier:1
-                                                            constant:[[UIScreen mainScreen]bounds].size.width/15]];
+                                                            constant:[BaseView getPortraitWidth]/15.0]];
     
     
     [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock

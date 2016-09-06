@@ -20,22 +20,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
-    
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.autoresizesSubviews=YES;
     HomeViewController *homeViewController = [[HomeViewController alloc] init];
-    //ProfileViewController *homeViewController = [[ProfileViewController alloc] init];
     UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-    self.window.rootViewController =
-                                        //homeViewController;
-                                        homeNav;
+    self.window.rootViewController = homeNav;
     [self.window makeKeyAndVisible];
-    //[self.window addSubview:homeNav.view];
     
-//    HomeViewController *homeViewController = [[HomeViewController alloc] init];
-//    UINavigationController *homeNav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-
+    application.statusBarStyle = UIStatusBarStyleLightContent;
+    
     // Override point for customization after application launch.
     return YES;
 }
