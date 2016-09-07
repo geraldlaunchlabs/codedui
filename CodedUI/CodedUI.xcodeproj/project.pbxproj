@@ -194,10 +194,9 @@
 			children = (
 				6068D1691D76830700DA15E6 /* AppDelegate */,
 				6059E3561D6C4651000405C4 /* BaseView */,
-				6042AAF31D7989FE004639DF /* Bot Menu */,
-				6032E5911D7805CB0020B873 /* ProfileBlock */,
 				6068D1641D76822B00DA15E6 /* HomeView */,
 				6068D1681D7682E600DA15E6 /* ProfileView */,
+				6042AAF31D7989FE004639DF /* Bot Menu */,
 				6059E3261D6C40B7000405C4 /* Assets.xcassets */,
 				6059E32B1D6C40B7000405C4 /* Info.plist */,
 				6059E3231D6C40B7000405C4 /* CodedUI.xcdatamodeld */,
@@ -262,6 +261,7 @@
 				6068D1661D7682D300DA15E6 /* ProfileView.m */,
 				6068D16A1D7686AA00DA15E6 /* ProfileViewController.h */,
 				6068D16B1D7686AA00DA15E6 /* ProfileViewController.m */,
+				6032E5911D7805CB0020B873 /* ProfileBlock */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";

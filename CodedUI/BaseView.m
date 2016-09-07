@@ -105,17 +105,20 @@
 }
 
 + (CGFloat)getPortraitWidth {
-    CGSize screenSize;
-    screenSize = [[UIScreen mainScreen]bounds].size;
+    CGSize screenSize = [[UIScreen mainScreen]bounds].size;
     if(screenSize.height > screenSize.width) return screenSize.width;
     else return screenSize.height;
 }
 
-+ (BOOL)isPortrait {
-    CGSize screenSize;
-    screenSize = [[UIScreen mainScreen]bounds].size;
-    if(screenSize.height > screenSize.width) return YES;
+- (BOOL)isPortrait {
+    if(self.bounds.size.height > self.bounds.size.width) return YES;
     else return NO;
+}
+
++ (void)setUINaviagtionBar:(UINavigationBar *)navBar barTintColor:(UIColor *)barTintColor tintColor:(UIColor *)tintColor translucent:(BOOL)trans {
+    navBar.barTintColor = barTintColor;
+    navBar.tintColor = tintColor;
+    navBar.translucent = trans;
 }
 
 @end

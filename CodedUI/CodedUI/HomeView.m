@@ -14,7 +14,6 @@
 @synthesize scroll;
 
 -(void)setupLayout {
-    
     UIButton *upcomingBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     upcomingBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [upcomingBtn setTitle:@"Upcoming" forState:UIControlStateNormal];
@@ -31,12 +30,12 @@
     previousBtn.backgroundColor = [BaseView colorWithHexString:@"FD5055"];
     [self addSubview:previousBtn];
     
-    BotMenu *botMenu = [[BotMenu alloc]init];
+    BotMenu *botMenu = [BotMenu new];
     botMenu.translatesAutoresizingMaskIntoConstraints = NO;
     botMenu.backgroundColor = [BaseView colorWithHexString:@"FD5055"];
     [self addSubview:botMenu];
     
-    scroll = [[UIScrollView alloc]init];
+    scroll = [UIScrollView new];
     scroll.translatesAutoresizingMaskIntoConstraints = NO;
     scroll.showsVerticalScrollIndicator = NO;
     scroll.scrollEnabled = YES;
@@ -177,37 +176,37 @@
     if(i > 0) prevRoomView = (UIView *)[scrollView viewWithTag:1+(i-1)*4];
     else prevRoomView = nil;
     
-    UIButton *roomView = [[UIButton alloc]init];
+    UIButton *roomView = [UIButton new];
     roomView.translatesAutoresizingMaskIntoConstraints = NO;
     roomView.tag = 1+i*4;
     [roomView addTarget:homeViewDelegate action:@selector(gotoProfile:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:roomView];
     
-    UIImageView *img = [[UIImageView alloc]init];
+    UIImageView *img = [UIImageView new];
     img.translatesAutoresizingMaskIntoConstraints = NO;
     img.image = [UIImage imageNamed:data[@"img"]];
     [roomView addSubview:img];
     
-    UIImageView *profPic = [[UIImageView alloc] init];
+    UIImageView *profPic = [UIImageView new];
     profPic.translatesAutoresizingMaskIntoConstraints = NO;
     profPic.image = [UIImage imageNamed:data[@"profPic"]];
     profPic.contentMode = UIViewContentModeScaleAspectFill;
     profPic.tag = 2+i*4;
-    [scrollView addSubview:profPic];
+    [roomView addSubview:profPic];
     
-    UILabel *lbl1 = [[UILabel alloc]init];
+    UILabel *lbl1 = [UILabel new];
     lbl1.translatesAutoresizingMaskIntoConstraints = NO;
     lbl1.text = data[@"lbl1"];
     lbl1.textColor = [BaseView colorWithHexString:@"474E4E"];
     lbl1.tag = 3+i*4;
-    [scrollView addSubview:lbl1];
+    [roomView addSubview:lbl1];
     
-    UILabel *lbl2 = [[UILabel alloc]init];
+    UILabel *lbl2 = [UILabel new];
     lbl2.translatesAutoresizingMaskIntoConstraints = NO;
     lbl2.text = data[@"lbl2"];
     lbl2.textColor = [BaseView colorWithHexString:@"858E91"];
     lbl2.tag = 4+i*4;
-    [scrollView addSubview:lbl2];
+    [roomView addSubview:lbl2];
     
     if(prevRoomView == nil) {
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:roomView
@@ -283,101 +282,101 @@
                                                         multiplier:750.0/505.0
                                                           constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeCenterY
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:img
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                         attribute:NSLayoutAttributeCenterY
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:img
+                                                         attribute:NSLayoutAttributeBottom
+                                                        multiplier:1
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeRight
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:img
-                                                           attribute:NSLayoutAttributeRight
-                                                          multiplier:1
-                                                            constant:-[BaseView getPortraitWidth]/25.0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                         attribute:NSLayoutAttributeRight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:img
+                                                         attribute:NSLayoutAttributeRight
+                                                        multiplier:1
+                                                          constant:-[BaseView getPortraitWidth]/25.0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:img
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:18.0/101.0
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                         attribute:NSLayoutAttributeWidth
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:img
+                                                         attribute:NSLayoutAttributeHeight
+                                                        multiplier:18.0/101.0
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:profPic
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:1/1
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:profPic
+                                                         attribute:NSLayoutAttributeWidth
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:profPic
+                                                         attribute:NSLayoutAttributeHeight
+                                                        multiplier:1
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                           attribute:NSLayoutAttributeTop
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:img
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1
-                                                            constant:[BaseView getPortraitWidth]/(750.0/35.0)]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:roomView
+                                                         attribute:NSLayoutAttributeBottom
+                                                        multiplier:540.0/650.0
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                           attribute:NSLayoutAttributeRight
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:roomView
-                                                           attribute:NSLayoutAttributeRight
-                                                          multiplier:1
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                         attribute:NSLayoutAttributeRight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:roomView
+                                                         attribute:NSLayoutAttributeRight
+                                                        multiplier:1
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                           attribute:NSLayoutAttributeLeft
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:roomView
-                                                           attribute:NSLayoutAttributeLeft
-                                                          multiplier:1
-                                                            constant:[BaseView getPortraitWidth]/(750.0/35.0)]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                         attribute:NSLayoutAttributeLeft
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:roomView
+                                                         attribute:NSLayoutAttributeLeft
+                                                        multiplier:1
+                                                          constant:[BaseView getPortraitWidth]/(750.0/35.0)]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:lbl1
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:715.0/34.0
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl1
+                                                         attribute:NSLayoutAttributeWidth
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:lbl1
+                                                         attribute:NSLayoutAttributeHeight
+                                                        multiplier:715.0/34.0
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                           attribute:NSLayoutAttributeBottom
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:roomView
-                                                           attribute:NSLayoutAttributeBottom
-                                                          multiplier:1
-                                                            constant:-[BaseView getPortraitWidth]/(750.0/35.0)]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                         attribute:NSLayoutAttributeBottom
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:roomView
+                                                         attribute:NSLayoutAttributeBottom
+                                                        multiplier:615.0/650.0
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                           attribute:NSLayoutAttributeRight
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:roomView
-                                                           attribute:NSLayoutAttributeRight
-                                                          multiplier:1
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                         attribute:NSLayoutAttributeRight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:roomView
+                                                         attribute:NSLayoutAttributeRight
+                                                        multiplier:1
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                           attribute:NSLayoutAttributeLeft
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:lbl1
-                                                           attribute:NSLayoutAttributeLeft
-                                                          multiplier:1
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                         attribute:NSLayoutAttributeLeft
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:lbl1
+                                                         attribute:NSLayoutAttributeLeft
+                                                        multiplier:1
+                                                          constant:0]];
     
-    [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:lbl2
-                                                           attribute:NSLayoutAttributeHeight
-                                                          multiplier:715.0/29.0
-                                                            constant:0]];
+    [roomView addConstraint:[NSLayoutConstraint constraintWithItem:lbl2
+                                                         attribute:NSLayoutAttributeWidth
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:lbl2
+                                                         attribute:NSLayoutAttributeHeight
+                                                        multiplier:715.0/29.0
+                                                          constant:0]];
     
     if(last) {
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:scrollView

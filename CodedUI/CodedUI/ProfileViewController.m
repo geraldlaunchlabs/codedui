@@ -19,26 +19,29 @@
 - (void)loadView {
     [super viewDidLoad];
     [self initView];
-    
-    profileView.scroll.delegate = self;
-    
-    self.navigationController.navigationBar.barTintColor = [BaseView averageColorOfImage:((UIImageView *)[profileView viewWithTag:1]).image];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)initView {
-    profileView = [[ProfileView alloc]init];
+    [BaseView setUINaviagtionBar:self.navigationController.navigationBar
+                    barTintColor:[BaseView averageColorOfImage:[UIImage imageNamed:data[@"img"]]]
+                       tintColor:[UIColor whiteColor]
+                     translucent:NO];
+    
+    profileView = [ProfileView new];
     profileView.baseViewDelegate = self;
     profileView.profileViewDelegate = self;
+    profileView.scroll.delegate = self;
+    
     [profileView setupLayout];
     
     self.view = profileView;
     
     ((UIImageView *)[profileView viewWithTag:1]).image = [UIImage imageNamed:data[@"img"]];
+    
     [profileView addProfileBlockToScrollView:profileView.scroll header:data[@"lbl2"] content:data[@"description"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Anatomy" content:data[@"anatomy"] last:NO];
     [profileView addProfileBlockToScrollView:profileView.scroll header:@"Characteristics" content:data[@"characteristics"] last:YES];
+    
     ((UIImageView *)[profileView.scroll viewWithTag:2]).image = [UIImage imageNamed:data[@"profPic"]];
 }
 

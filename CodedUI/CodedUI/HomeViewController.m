@@ -22,7 +22,7 @@
 }
 
 - (void)initView {
-    homeView = [[HomeView alloc]init];
+    homeView = [HomeView new];
     homeView.baseViewDelegate = self;
     homeView.homeViewDelegate = self;
     [homeView setupLayout];
@@ -95,10 +95,12 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [BaseView setUINaviagtionBar:self.navigationController.navigationBar
+                    barTintColor:[BaseView colorWithHexString:@"FD5055"]
+                       tintColor:[UIColor whiteColor]
+                     translucent:NO];
+    
     [self adjustRoomViewSubviews];
-    self.navigationController.navigationBar.barTintColor = [BaseView colorWithHexString:@"FD5055"];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -126,7 +128,6 @@
             }];
         } completion:nil];
         
-        
         lbl = [homeView.scroll viewWithTag:i++];
         lbl.font = [UIFont systemFontOfSize:lbl.frame.size.height-2];
         lbl = [homeView.scroll viewWithTag:i++];
@@ -137,7 +138,7 @@
 #pragma mark - Go to Profile View
 
 - (IBAction)gotoProfile:(id)sender {
-    ProfileViewController *push = [[ProfileViewController alloc ]init];
+    ProfileViewController *push = [ProfileViewController new];
     
     int i = (int)(-1+(((UIButton *)sender).tag+3)/4);
     

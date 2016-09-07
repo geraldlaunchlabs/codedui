@@ -19,7 +19,8 @@
 + (UIColor *)averageColorOfImage:(UIImage*)image;
 + (UIColor *)changeOpacity:(UIColor*)color amount:(CGFloat)amount;
 + (CGFloat)getPortraitWidth;
-+ (BOOL)isPortrait;
+- (BOOL)isPortrait;
++ (void)setUINaviagtionBar:(UINavigationBar *)navBar barTintColor:(UIColor *)barTintColor tintColor:(UIColor *)tintColor translucent:(BOOL)trans;
 
 @end
 

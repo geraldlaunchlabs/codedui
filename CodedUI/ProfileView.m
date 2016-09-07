@@ -19,22 +19,21 @@
 @synthesize scroll;
 
 -(void)setupLayout {
-    
-    UIImageView *coverPhoto = [[UIImageView alloc]init];
+    UIImageView *coverPhoto = [UIImageView new];
     coverPhoto.translatesAutoresizingMaskIntoConstraints = NO;
     coverPhoto.contentMode = UIViewContentModeScaleAspectFill;
     coverPhoto.clipsToBounds = YES;
     coverPhoto.tag = 1;
     [self addSubview:coverPhoto];
     
-    scroll = [[UIScrollView alloc]init];
+    scroll = [UIScrollView new];
     scroll.translatesAutoresizingMaskIntoConstraints = NO;
     scroll.showsVerticalScrollIndicator = NO;
     scroll.scrollEnabled = YES;
     scroll.backgroundColor = [UIColor whiteColor];
     [self addSubview:scroll];
     
-    BotMenu *botMenu = [[BotMenu alloc]init];
+    BotMenu *botMenu = [BotMenu new];
     botMenu.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:botMenu];
 
@@ -141,7 +140,7 @@
     scrollView.backgroundColor = [UIColor clearColor];
     self.backgroundColor = aveColor;
     
-    ProfileBlock *profileBlock = [[ProfileBlock alloc]init];
+    ProfileBlock *profileBlock = [ProfileBlock new];
     profileBlock.translatesAutoresizingMaskIntoConstraints = NO;
     profileBlock.header.text = header;
     profileBlock.content.text = content;
@@ -155,18 +154,18 @@
     [scrollView addSubview:profileBlock];
     
     if (i == 7) {
-        spc = [[UIView alloc]init];
+        spc = [UIView new];
         spc.translatesAutoresizingMaskIntoConstraints = NO;
         spc.backgroundColor = aveColor;
         [scrollView addSubview:spc];
        
-        UIImageView *profPic = [[UIImageView alloc]init];
+        UIImageView *profPic = [UIImageView new];
         profPic.translatesAutoresizingMaskIntoConstraints = NO;
         profPic.contentMode = UIViewContentModeScaleAspectFit;
         profPic.tag = 2;
         [scrollView addSubview:profPic];
         
-        UIButton *search = [[UIButton alloc]init];
+        UIButton *search = [UIButton new];
         search.translatesAutoresizingMaskIntoConstraints = NO;
         [search setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
         search.backgroundColor = aveColor;
@@ -187,7 +186,7 @@
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:search
                                                                attribute:NSLayoutAttributeBottom
-                                                              multiplier:1/1
+                                                              multiplier:1
                                                                 constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:spc
@@ -235,7 +234,7 @@
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:search
                                                                attribute:NSLayoutAttributeHeight
-                                                              multiplier:1/1
+                                                              multiplier:1
                                                                 constant:0]];
         
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
@@ -275,7 +274,7 @@
                                                                relatedBy:NSLayoutRelationEqual
                                                                   toItem:profPic
                                                                attribute:NSLayoutAttributeHeight
-                                                              multiplier:1/1
+                                                              multiplier:1
                                                                 constant:0]];
     } else {
         [scrollView addConstraint:[NSLayoutConstraint constraintWithItem:profileBlock
