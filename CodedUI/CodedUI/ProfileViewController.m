@@ -46,13 +46,11 @@
 }
 
 - (void)viewDidLayoutSubviews {
-    UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
-    Search.layer.cornerRadius = Search.frame.size.width/2;
+    [BaseView viewMakeRound:[profileView.scroll viewWithTag:3]];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    UIButton *Search = (UIButton *)[profileView.scroll viewWithTag:3];
-    Search.layer.cornerRadius = Search.frame.size.width/2;
+    [BaseView viewMakeRound:[profileView.scroll viewWithTag:3]];
 }
 
 - (void)didReceiveMemoryWarning {

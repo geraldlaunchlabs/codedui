@@ -10,7 +10,7 @@
 
 @interface ProfileBlock : BaseView
 
-@property (strong, nonatomic) IBOutlet UILabel *header;
-@property (strong, nonatomic) IBOutlet UITextView *content;
+@property (nonatomic) IBOutlet UILabel *header;
+@property (nonatomic) IBOutlet UITextView *content;
 
 @end

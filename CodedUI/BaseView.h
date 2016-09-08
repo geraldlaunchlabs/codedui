@@ -12,7 +12,7 @@
 
 @interface BaseView : UIView
 
-@property (nonatomic, strong) id <BaseViewDelegate> baseViewDelegate;
+@property (nonatomic) id <BaseViewDelegate> baseViewDelegate;
 
 - (void)setupLayout;
 + (UIColor *)colorWithHexString:(NSString *)hex;
@@ -21,6 +21,9 @@
 + (CGFloat)getPortraitWidth;
 - (BOOL)isPortrait;
 + (void)setUINaviagtionBar:(UINavigationBar *)navBar barTintColor:(UIColor *)barTintColor tintColor:(UIColor *)tintColor translucent:(BOOL)trans;
++ (void)viewMakeRound:(UIView *)image;
++ (void)viewAddBorder:(UIView *)view size:(float)size color:(UIColor *)color clipsToBounds:(BOOL)clip;
++ (void)adjustFontSizeToFitLabel:(UILabel *)label;
 
 @end
 

@@ -110,38 +110,23 @@
 - (void)adjustRoomViewSubviews {
     int i = 1;
     UIImageView *profPic;
-    UILabel *lbl;
     
     while([homeView.scroll viewWithTag:i++]) {
         profPic = [homeView.scroll viewWithTag:i++];
-        profPic.layer.cornerRadius = profPic.frame.size.width/2;
-        profPic.layer.borderWidth = profPic.frame.size.width/25;
-        profPic.layer.borderColor = [UIColor whiteColor].CGColor;
-        profPic.clipsToBounds = YES;
+        [BaseView viewMakeRound:profPic];
+        [BaseView viewAddBorder:profPic size:profPic.frame.size.width/25 color:[UIColor whiteColor] clipsToBounds:YES];
         
-        [UIView animateKeyframesWithDuration:2.0 delay:0.0 options:UIViewKeyframeAnimationOptionAutoreverse | UIViewKeyframeAnimationOptionRepeat animations:^{
-            [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{
-                profPic.transform = CGAffineTransformMakeScale(3, 3);
-            }];
-            [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{
-                profPic.transform = CGAffineTransformMakeScale(1, 1);
-            }];
-        } completion:nil];
-        
-        lbl = [homeView.scroll viewWithTag:i++];
-        lbl.font = [UIFont systemFontOfSize:lbl.frame.size.height-2];
-        lbl = [homeView.scroll viewWithTag:i++];
-        lbl.font = [UIFont systemFontOfSize:lbl.frame.size.height-2];
+        [BaseView adjustFontSizeToFitLabel:[homeView.scroll viewWithTag:i++]];
+        [BaseView adjustFontSizeToFitLabel:[homeView.scroll viewWithTag:i++]];
     }
 }
 
 #pragma mark - Go to Profile View
 
 - (IBAction)gotoProfile:(id)sender {
-    ProfileViewController *push = [ProfileViewController new];
-    
     int i = (int)(-1+(((UIButton *)sender).tag+3)/4);
     
+    ProfileViewController *push = [ProfileViewController new];
     push.data = [self getData][i];
     
     [self.navigationController pushViewController:push animated:YES];

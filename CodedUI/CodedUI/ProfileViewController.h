@@ -14,7 +14,7 @@
     ProfileView *profileView;
 }
 
-@property (strong, nonatomic) IBOutlet NSString *coverPhoto;
-@property (strong, nonatomic) IBOutlet NSDictionary *data;
+@property (nonatomic) IBOutlet NSString *coverPhoto;
+@property (nonatomic) IBOutlet NSDictionary *data;
 
 @end

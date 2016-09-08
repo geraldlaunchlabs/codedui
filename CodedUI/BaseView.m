@@ -121,4 +121,18 @@
     navBar.translucent = trans;
 }
 
++ (void)viewMakeRound:(UIView *)image {
+    image.layer.cornerRadius = image.frame.size.width/2;
+}
+
++ (void)viewAddBorder:(UIView *)view size:(float)size color:(UIColor *)color clipsToBounds:(BOOL)clip {
+    view.layer.borderWidth = size;
+    view.layer.borderColor = color.CGColor;
+    view.clipsToBounds = YES;
+}
+
++ (void)adjustFontSizeToFitLabel:(UILabel *)label {
+    label.font = [UIFont systemFontOfSize:label.frame.size.height-2];
+}
+
 @end

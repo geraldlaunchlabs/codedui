@@ -14,8 +14,8 @@
 
 @interface HomeView : BaseView <UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scroll;
-@property (nonatomic, strong) id <HomeViewDelegate> homeViewDelegate;
+@property (nonatomic) IBOutlet UIScrollView *scroll;
+@property (nonatomic) id <HomeViewDelegate> homeViewDelegate;
 
 - (void)addRoomViewOnScrollView:(UIScrollView *)scrollView data:(NSDictionary *)data index:(int)i last:(BOOL)last;
 

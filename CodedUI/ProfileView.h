@@ -15,8 +15,8 @@
 
 @interface ProfileView : BaseView<UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scroll;
-@property (nonatomic, strong) id <ProfileViewDelegate> profileViewDelegate;
+@property (nonatomic) IBOutlet UIScrollView *scroll;
+@property (nonatomic) id <ProfileViewDelegate> profileViewDelegate;
 - (void)addProfileBlockToScrollView:(UIScrollView *)scrollView header:(NSString *)header content:(NSString *)content last:(BOOL)last;
 
 @end
